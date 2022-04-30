@@ -12,12 +12,14 @@ datasource db {
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  email     String     @unique
-  password  String
-  playlists Playlist[]
+  id             Int        @id @default(autoincrement())
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  email          String     @unique
+  username       String
+  password       String
+  followersCount Int        @default(0)
+  playlists      Playlist[]
 }
 
 model Song {

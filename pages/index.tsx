@@ -5,15 +5,20 @@ import { Image } from "@chakra-ui/react";
 import styles from "../styles/Home.module.css";
 import GradientLayout from "../components/gradientLayout";
 import prisma from "../lib/prisma";
+import { useMe } from "../lib/hooks";
 
 const Home = ({ artists }) => {
+  const { user } = useMe();
+
   return (
     <GradientLayout
       color="brown"
       isRoundAvatar
       subtitle="profile"
-      title="Gulsahgenc"
-      description="19 Public Playlists - 106 Followers"
+      title={user?.username ?? ""}
+      description={`${user?.playlistsCount ?? ""} Public Playlists - ${
+        user?.followersCount ?? ""
+      } Followers`}
       avatar="https://i.scdn.co/image/ab6775700000ee8508d489fbe80dd6c89e0c2b70"
     >
       <Box color="white" paddingX="40px">
