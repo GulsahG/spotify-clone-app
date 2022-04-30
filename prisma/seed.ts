@@ -4,6 +4,19 @@ import { artistsData } from "./songsData";
 
 const prisma = new PrismaClient();
 
+const playlistNames = [
+  "top of the mornin",
+  "tia tamera vibe",
+  "what day is it",
+  "buttcheeks",
+  "turn it up!",
+  "another daydream",
+  "i'm closing my eyes",
+  "marsh",
+  "fitter happier",
+  "it is what it is",
+];
+
 const run = async () => {
   await Promise.all(
     artistsData.map(async (artist) => {
@@ -41,7 +54,7 @@ const run = async () => {
     new Array(10).fill(1).map(async (_, idx) => {
       return prisma.playlist.create({
         data: {
-          name: `Playlist #${idx + 1}`,
+          name: playlistNames[idx],
           user: {
             connect: { id: user.id },
           },
