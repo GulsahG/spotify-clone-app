@@ -33,3 +33,8 @@ export const validateRoute = (
     }
   };
 };
+
+export const validateToken = (token: string) => {
+  const user = jwt.verify(token, "hello") as JwtPayload;
+  return user;
+};

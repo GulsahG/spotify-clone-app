@@ -22,6 +22,7 @@ const GradientLayout = ({
             src={avatar}
             alt="User avatar image"
             boxSize="200px"
+            objectFit="cover"
             boxShadow="2xl"
             borderRadius={isRoundAvatar ? "100%" : "3px"}
           />
