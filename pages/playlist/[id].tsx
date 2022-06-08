@@ -2,6 +2,8 @@ import prisma from "../../lib/prisma";
 import { validateToken } from "../../lib/auth";
 import playlist from "../api/playlist";
 import GradientLayout from "../../components/gradientLayout";
+import SongTable from "../../components/songsTable";
+import { formatTime } from "../../lib/formatters";
 
 const getBGColor = (id: number) => {
   const colors = [
@@ -44,9 +46,7 @@ const Playlist = ({ playlist, username }) => {
     (acc: any, song: { duration: number }) => acc + song.duration,
     0
   );
-  const durationHours = Math.floor(playlistDuration / 3600);
-  playlistDuration = playlistDuration % 3600;
-  const durationMinutes = Math.floor(playlistDuration / 60);
+  playlistDuration = formatTime(playlistDuration)[1];
   return (
     <GradientLayout
       color={color}
@@ -54,11 +54,14 @@ const Playlist = ({ playlist, username }) => {
       title={playlist.name}
       subtitle="playlist"
       description={`${username} • ${playlist.songs.length} songs, ${
-        durationHours ? `${durationHours} hr` : ""
-      } ${durationMinutes} min`}
+        playlistDuration[0]
+          ? `${playlistDuration[0]} hr ${playlistDuration[1]} min`
+          : `${playlistDuration[1] ? `${playlistDuration[1]} min ` : ""}
+          ${playlistDuration[2]} sec`
+      } `}
       avatar={image}
     >
-      <div>{playlist.id}</div>
+      <SongTable songs={playlist.songs} />
     </GradientLayout>
   );
 };
