@@ -3,6 +3,7 @@ import { Table, Thead, Td, Tr, Tbody, Th, IconButton } from "@chakra-ui/react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { formatTime, formatDate } from "../lib/formatters";
+
 const SongTable = ({ songs }) => {
   return (
     <Box bg="transparent">
@@ -36,31 +37,42 @@ const SongTable = ({ songs }) => {
             </Tr>
           </Thead>
           <Tbody fontSize="16px">
-            {songs.map((song, idx: number) => (
-              <Tr
-                key={song.id}
-                sx={{
-                  transition: "all .3s",
-                }}
-                _hover={{ background: "rgba(255, 255, 255, 0.1)" }}
-                cursor="cursor"
-              >
-                <Td color="gray.400" width="20px">
-                  {idx + 1}
-                </Td>
+            {songs.map(
+              (
+                song: {
+                  id: number;
+                  name: string;
+                  artist: { name: string };
+                  createdAt: Date;
+                  duration: number;
+                },
+                idx: number
+              ) => (
+                <Tr
+                  key={song.id}
+                  sx={{
+                    transition: "all .3s",
+                  }}
+                  _hover={{ background: "rgba(255, 255, 255, 0.1)" }}
+                  cursor="cursor"
+                >
+                  <Td color="gray.400" width="20px">
+                    {idx + 1}
+                  </Td>
 
-                <Td paddingInlineStart={0}>
-                  <Box>
-                    <Text> {song.name}</Text>
-                    <Text color="gray.400"> {song.artist?.name ?? ""}</Text>
-                  </Box>
-                </Td>
+                  <Td paddingInlineStart={0}>
+                    <Box>
+                      <Text> {song.name}</Text>
+                      <Text color="gray.400"> {song.artist?.name ?? ""}</Text>
+                    </Box>
+                  </Td>
 
-                {/* <Td>{song.album}</Td> */}
-                <Td color="gray.400">{formatDate(song.createdAt)}</Td>
-                <Td color="gray.400">{formatTime(song.duration)[0]}</Td>
-              </Tr>
-            ))}
+                  {/* <Td>{song.album}</Td> */}
+                  <Td color="gray.400">{formatDate(song.createdAt)}</Td>
+                  <Td color="gray.400">{formatTime(song.duration)[0]}</Td>
+                </Tr>
+              )
+            )}
           </Tbody>
         </Table>
       </Box>

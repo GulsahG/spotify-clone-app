@@ -16,8 +16,12 @@ export const formatTime = (duration: number) => {
   return [formattedStr, [hrs, mins, secs]];
 };
 
-export const formatDate = (givenDate, dateNow = new Date()) => {
-  const dateOptions = { year: "numeric", month: "short", day: "numeric" };
+export const formatDate = (givenDate: Date, dateNow = new Date()) => {
+  const dateOptions = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  } as const;
 
   let timeDiff = dateNow.getTime() - givenDate.getTime();
   let timeStr = "";

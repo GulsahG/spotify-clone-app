@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "./prisma";
 
-interface JwtPayload {
+export interface JwtPayload {
   id: number;
 }
 export const validateRoute = (

@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/react";
 
-import styles from "../styles/Home.module.css";
+// import styles from "../styles/Home.module.css";
 import GradientLayout from "../components/gradientLayout";
 import prisma from "../lib/prisma";
 import { useMe } from "../lib/hooks";
@@ -31,7 +31,7 @@ const Home = ({ artists }) => {
           </Text>
         </Box>
         <Flex>
-          {artists.map((artist, idx) => (
+          {artists.map((artist: { id: number; name: string }, idx: number) => (
             <Box
               key={artist.id}
               width="calc(14.29% - 40px)"
