@@ -39,26 +39,38 @@ const getBGImage = (id: number) => {
   return images[id - 1] || images[Math.floor(Math.random() * images.length)];
 };
 
-const Playlist = ({ playlist, username }) => {
-  const color = getBGColor(playlist.id);
-  const image = getBGImage(playlist.id);
+const Description = ({ playlist, username }) => {
   let playlistDuration = playlist.songs?.reduce(
     (acc: any, song: { duration: number }) => acc + song.duration,
     0
   );
   playlistDuration = formatTime(playlistDuration)[1];
   return (
+    <p>
+      <span style={{ fontWeight: 600 }}>
+        {`${username} • ${playlist.songs.length} songs, `}
+      </span>
+      {`${
+        playlistDuration[0]
+          ? `${playlistDuration[0]} hr ${playlistDuration[1]} min`
+          : `${playlistDuration[1] ? `${playlistDuration[1]} min ` : ""}
+          ${playlistDuration[2]} sec`
+      }`}
+    </p>
+  );
+};
+
+const Playlist = ({ playlist, username }) => {
+  const color = getBGColor(playlist.id);
+  const image = getBGImage(playlist.id);
+
+  return (
     <GradientLayout
       color={color}
       isRoundAvatar={false}
       title={playlist.name}
       subtitle="playlist"
-      description={`${username} • ${playlist.songs.length} songs, ${
-        playlistDuration[0]
-          ? `${playlistDuration[0]} hr ${playlistDuration[1]} min`
-          : `${playlistDuration[1] ? `${playlistDuration[1]} min ` : ""}
-          ${playlistDuration[2]} sec`
-      } `}
+      description={<Description playlist={playlist} username={username} />}
       avatar={image}
     >
       <SongTable songs={playlist.songs} />

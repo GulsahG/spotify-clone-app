@@ -62,8 +62,10 @@ const SongTable = ({ songs }) => {
 
                   <Td paddingInlineStart={0}>
                     <Box>
-                      <Text> {song.name}</Text>
-                      <Text color="gray.400"> {song.artist?.name ?? ""}</Text>
+                      <Text fontWeight="500"> {song.name}</Text>
+                      <Text color="gray.400" fontSize="14px">
+                        {song.artist?.name ?? ""}
+                      </Text>
                     </Box>
                   </Td>
 

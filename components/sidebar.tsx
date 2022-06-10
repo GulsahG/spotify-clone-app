@@ -55,7 +55,7 @@ const Sidebar = () => {
   return (
     <Box
       width="100%"
-      height="calc(100vh - 100px)"
+      height="calc(100vh - 90px)"
       bg="black"
       paddingX="5px"
       color="gray"
