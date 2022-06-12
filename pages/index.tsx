@@ -34,10 +34,19 @@ const Home = ({ artists }) => {
           {artists.map((artist: { id: number; name: string }, idx: number) => (
             <Box
               key={artist.id}
-              width="calc(14.29% - 40px)"
+              width="calc(24.29% - 40px)"
               marginLeft={idx === 0 ? "0" : "40px"}
             >
-              <Box width="100%" bg="gray.900" borderRadius="4px" padding="15px">
+              <Box
+                width="100%"
+                bg="rgba(0,0,0,0.5)"
+                _hover={{
+                  bg: "rgba(255,255,255,0.05)",
+                  transition: "all .3s",
+                }}
+                borderRadius="4px"
+                padding="15px"
+              >
                 <Image
                   src="https://i.scdn.co/image/ab6761610000e5ebd6f2323c1971fd5a70cd0255"
                   borderRadius="100%"
