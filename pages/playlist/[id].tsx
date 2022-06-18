@@ -1,6 +1,6 @@
 import prisma from "../../lib/prisma";
 import { validateToken, JwtPayload } from "../../lib/auth";
-import playlist from "../api/playlist";
+// import playlist from "../api/playlist";
 import GradientLayout from "../../components/gradientLayout";
 import SongTable from "../../components/songsTable";
 import { formatTime } from "../../lib/formatters";

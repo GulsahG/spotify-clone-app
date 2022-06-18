@@ -56,7 +56,7 @@ const Sidebar = () => {
     <Box
       width="100%"
       height="calc(100vh - 90px)"
-      bg="black"
+      bg="blackAlpha.900"
       paddingX="5px"
       color="gray"
     >
