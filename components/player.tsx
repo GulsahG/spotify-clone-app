@@ -22,10 +22,27 @@ import {
 } from "react-icons/md";
 import { useStoreActions } from "easy-peasy";
 
-const Player = () => {
+const Player = ({ songs, activeSong }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [index, setIndex] = useState(0);
+  // const [seek, setSeek] = useState(0);
+  const [repeat, setRepeat] = useState(false);
+  const [shuffle, setShuffle] = useState(false);
+  const [duration, setDuration] = useState(0.0);
+
+  useEffect(() => {
+    if (activeSong) {
+      setIsPlaying(true);
+    }
+  }, [activeSong]);
+
   return (
     <Box>
-      <Box>{/* <ReactHowler /> */}</Box>
+      <Box>
+        {activeSong && (
+          <ReactHowler src={activeSong?.url} playing={isPlaying} />
+        )}
+      </Box>
       <Center>
         <ButtonGroup>
           <IconButton
@@ -34,8 +51,9 @@ const Player = () => {
             aria-label="Shuffle queue"
             fontSize="20px"
             icon={<MdShuffle />}
-            color="gray.400"
+            color={shuffle ? "#1dd05d" : "gray.400"}
             _hover={{ color: "gray.100", transition: "all .3s" }}
+            onClick={() => setShuffle(!shuffle)}
           />
           <IconButton
             outline=""
@@ -47,26 +65,37 @@ const Player = () => {
             sx={{ marginInlineStart: "0 !important" }}
             _hover={{ color: "gray.100", transition: "all .3s" }}
           />
-          <IconButton
-            outline=""
-            variant="link"
-            aria-label="Play current song in queue"
-            fontSize="38px"
-            icon={<MdOutlinePlayCircleFilled />}
-            color="gray.100"
-            sx={{ marginInlineStart: "0 !important" }}
-            _hover={{ transform: "scale(1.1)", transition: "all .3s ease-in" }}
-          />
-          <IconButton
-            outline=""
-            variant="link"
-            aria-label="Pause current song in queue"
-            fontSize="38px"
-            icon={<MdOutlinePauseCircleFilled />}
-            color="gray.100"
-            sx={{ marginInlineStart: "0 !important" }}
-            _hover={{ transform: "scale(1.1)", transition: "all .3s ease-in" }}
-          />
+          {isPlaying ? (
+            <IconButton
+              outline=""
+              variant="link"
+              aria-label="Pause current song in queue"
+              fontSize="38px"
+              icon={<MdOutlinePauseCircleFilled />}
+              color="gray.100"
+              sx={{ marginInlineStart: "0 !important" }}
+              _hover={{
+                transform: "scale(1.1)",
+                transition: "all .3s ease-in-out",
+              }}
+              onClick={() => setIsPlaying(false)}
+            />
+          ) : (
+            <IconButton
+              outline=""
+              variant="link"
+              aria-label="Play current song in queue"
+              fontSize="38px"
+              icon={<MdOutlinePlayCircleFilled />}
+              color="gray.100"
+              sx={{ marginInlineStart: "0 !important" }}
+              _hover={{
+                transform: "scale(1.1)",
+                transition: "all .3s ease-in-out",
+              }}
+              onClick={() => setIsPlaying(true)}
+            />
+          )}
           <IconButton
             outline=""
             variant="link"
@@ -83,9 +112,10 @@ const Player = () => {
             aria-label="Repeat current songs in queue"
             fontSize="20px"
             icon={<MdOutlineRepeat />}
-            color="gray.400"
+            color={repeat ? "#1dd05d" : "gray.400"}
             sx={{ marginInlineStart: "0 !important" }}
             _hover={{ color: "gray.100", transition: "all .3s" }}
+            onClick={() => setRepeat(!repeat)}
           />
         </ButtonGroup>
       </Center>

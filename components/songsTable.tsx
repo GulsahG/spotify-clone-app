@@ -3,8 +3,17 @@ import { Table, Thead, Td, Tr, Tbody, Th, IconButton } from "@chakra-ui/react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { formatTime, formatDate } from "../lib/formatters";
+import { useStoreActions } from "easy-peasy";
 
 const SongTable = ({ songs }) => {
+  const playSongs = useStoreActions((store: any) => store.changeActiveSongs);
+  const setActiveSong = useStoreActions((store: any) => store.changeActiveSong);
+
+  const handlePlay = (activeSong = null) => {
+    setActiveSong(activeSong ?? songs[0]);
+    playSongs(songs);
+  };
+
   return (
     <Box bg="transparent">
       <Box p="10px" mb="20px" ml="50px" mt="-25px">
@@ -16,6 +25,7 @@ const SongTable = ({ songs }) => {
           _active={{ bg: "#1dd05d" }}
           size="lg"
           isRound
+          onClick={() => handlePlay()}
         />
         <Table variant="unstyled" mt="15px">
           <Thead
@@ -54,7 +64,8 @@ const SongTable = ({ songs }) => {
                     transition: "all .3s",
                   }}
                   _hover={{ background: "rgba(255, 255, 255, 0.1)" }}
-                  cursor="cursor"
+                  cursor="pointer"
+                  onDoubleClick={() => handlePlay(song)}
                 >
                   <Td color="gray.400" width="20px">
                     {idx + 1}
