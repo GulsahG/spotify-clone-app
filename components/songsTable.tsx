@@ -47,7 +47,7 @@ const SongTable = ({ songs }) => {
             </Tr>
           </Thead>
           <Tbody fontSize="16px">
-            {songs.map(
+            {songs?.map(
               (
                 song: {
                   id: number;

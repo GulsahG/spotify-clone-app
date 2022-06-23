@@ -30,6 +30,7 @@ const run = async () => {
               name: song.name,
               duration: song.duration,
               url: song.url,
+              isFavorited: song.isFavorited,
             })),
           },
         },

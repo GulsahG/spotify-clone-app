@@ -23,15 +23,16 @@ model User {
 }
 
 model Song {
-  id        Int        @id @default(autoincrement())
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  name      String
-  artist    Artist     @relation(fields: [artistId], references: [id]) // one-to-many
-  artistId  Int
-  duration  Int
-  url       String
-  playlists Playlist[] // many-to-many
+  id          Int        @id @default(autoincrement())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  name        String
+  artist      Artist     @relation(fields: [artistId], references: [id]) // one-to-many
+  artistId    Int
+  duration    Int
+  url         String
+  isFavorited Int
+  playlists   Playlist[] // many-to-many
 }
 
 model Artist {
