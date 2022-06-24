@@ -6,16 +6,16 @@ import SongTable from "../components/songsTable";
 const Description = ({ favorites, username }) => {
   return (
     <p>
-      <span style={{ fontWeight: 600 }}>{`${username} •`}</span>
+      <span style={{ fontWeight: 600 }}>{`${username} • `}</span>
       {`${favorites?.length ?? 0} songs`}
     </p>
   );
 };
 
-const Favorites = ({ favorites, username }) => {
-  const color = "yellow";
+const Favorites = ({ favorites, username, userId }) => {
+  const color = "cyan";
   const image =
-    "https://external-preview.redd.it/CbSyyvYTDe7dGrYAvBQ1U6Ufez7gZMyZB0ksP5SLdSU.jpg?auto=webp&s=bbab6810a650ea79ffb170869bbd240c205bf087";
+    "https://preview.redd.it/rnqa7yhv4il71.jpg?width=1200&format=pjpg&auto=webp&s=3564fc3ee31b98f6425216c99981f3a3d01253bc";
 
   return (
     <GradientLayout
@@ -26,7 +26,7 @@ const Favorites = ({ favorites, username }) => {
       description={<Description favorites={favorites} username={username} />}
       avatar={image}
     >
-      <SongTable songs={favorites} />
+      <SongTable songs={favorites} userId={userId} />
     </GradientLayout>
   );
 };
@@ -60,7 +60,11 @@ export const getServerSideProps = async ({ query, req }) => {
     where: { id: user.id },
   });
   return {
-    props: { favorites, username: detailedUser.username },
+    props: {
+      favorites,
+      username: detailedUser.username,
+      userId: detailedUser.id,
+    },
   };
 };
 

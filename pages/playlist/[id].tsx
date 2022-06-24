@@ -60,7 +60,7 @@ const Description = ({ playlist, username }) => {
   );
 };
 
-const Playlist = ({ playlist, username }) => {
+const Playlist = ({ playlist, username, userId }) => {
   const color = getBGColor(playlist.id);
   const image = getBGImage(playlist.id);
 
@@ -73,7 +73,7 @@ const Playlist = ({ playlist, username }) => {
       description={<Description playlist={playlist} username={username} />}
       avatar={image}
     >
-      <SongTable songs={playlist.songs} />
+      <SongTable songs={playlist.songs} userId={userId} />
     </GradientLayout>
   );
 };
@@ -110,7 +110,7 @@ export const getServerSideProps = async ({ query, req }) => {
     where: { id: user.id },
   });
   return {
-    props: { playlist, username: detailedUser.username },
+    props: { playlist, username: detailedUser.username, userId: detailedUser.id },
   };
 };
 

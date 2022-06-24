@@ -20,3 +20,23 @@ export const usePlaylist = () => {
     isError: error,
   };
 };
+
+export const usePlaylistSongs = () => {
+  const { data, error } = useSWR("/playlistSongs", fetcher);
+
+  return {
+    playlists: (data as any) || [],
+    isLoading: !data && !error,
+    isError: error,
+  };
+};
+
+// export const useFavoriteFunc = () => {
+//   const { data, error } = useSWR("/handleFavorite", fetcher);
+
+//   return { 
+//     response: (data as any) || '',
+//     isLoading: !data && !error,
+//     isError: error,
+//   };
+// };
