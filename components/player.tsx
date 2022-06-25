@@ -36,6 +36,7 @@ const Player = ({ songs, activeSong }) => {
 
   const soundRef = useRef(null);
   const repeatRef = useRef(repeat);
+  const firstRender = useRef(true);
 
   const changeActiveSong = useStoreActions(
     (state: any) => state.changeActiveSong
@@ -94,10 +95,22 @@ const Player = ({ songs, activeSong }) => {
   }, [isPlaying, isSeeking]);
 
   useEffect(() => {
-    if (activeSong && !isPlaying) {
+    if (firstRender.current && activeSong) {
+      firstRender.current = false;
+      return;
+    }
+    if (!firstRender.current && activeSong && !isPlaying) {
       setIsPlaying(true);
     }
   }, [activeSong]);
+
+  // useEffect(() => {
+  //   debugger;
+  //   if (songs.length && activeSong === null) {
+  //     const idx = songs.findIndex((s) => s.isFavorited !== 0);
+  //     changeActiveSong(songs[idx]);
+  //   }
+  // }, [songs]);
 
   useEffect(() => {
     if (index === -1) setIndex(songs.findIndex((s) => s.id === activeSong?.id));

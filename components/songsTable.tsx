@@ -4,7 +4,7 @@ import { BsFillPlayFill } from "react-icons/bs";
 import { AiOutlineClockCircle, AiOutlineHeart } from "react-icons/ai";
 import { formatTime, formatDate } from "../lib/formatters";
 import { useStoreActions } from "easy-peasy";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const SongTable = ({ songs, userId }) => {
   const [songsState, setSongsState] = useState(songs);
@@ -13,26 +13,33 @@ const SongTable = ({ songs, userId }) => {
   const setActiveSong = useStoreActions((store: any) => store.changeActiveSong);
 
   const handlePlay = (activeSong = null) => {
-    setActiveSong(activeSong ?? songs[0]);
+    setActiveSong(activeSong ?? songs[1]);
     playSongs(songs);
   };
 
-  const handleFavorite = async (userId: number, songId: number, favState: number) => {
-    const selectedSong = songs.findIndex(s => s.id === songId);
-    songs[selectedSong].isFavorited = songs[selectedSong].isFavorited === userId ? 0 : userId;
+  useEffect(() => setActiveSong(songs[0]), []);
+
+  const handleFavorite = async (
+    userId: number,
+    songId: number,
+    favState: number
+  ) => {
+    const selectedSong = songs.findIndex((s) => s.id === songId);
+    songs[selectedSong].isFavorited =
+      songs[selectedSong].isFavorited === userId ? 0 : userId;
     const body = { userId, songId, favState };
     try {
       const response = await fetch("/api/handleFavorite", {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
-    });
-    if (response.status !== 200){
-      alert("something went wrong");
-    } else {
-      console.log("setted favorite state successfully!")
-      setSongsState([...songs]);
-    }
+      });
+      if (response.status !== 200) {
+        alert("something went wrong");
+      } else {
+        console.log("setted favorite state successfully!");
+        setSongsState([...songs]);
+      }
     } catch (error) {
       alert(`there was an error handling favorite state, ${error}`);
     }
@@ -119,7 +126,7 @@ const SongTable = ({ songs, userId }) => {
                       color={
                         song?.isFavorited === userId ? "#1dd05d" : "gray.400"
                       }
-                      opacity={song?.isFavorited === userId ? "1" :  "0"}
+                      opacity={song?.isFavorited === userId ? "1" : "0"}
                       mb={1}
                       mr={4}
                       _hover={{
@@ -128,7 +135,9 @@ const SongTable = ({ songs, userId }) => {
                       }}
                       _focus={{ bg: "none" }}
                       _active={{ bg: "none" }}
-                      onClick={() => handleFavorite(userId, song?.id, song?.isFavorited)}
+                      onClick={() =>
+                        handleFavorite(userId, song?.id, song?.isFavorited)
+                      }
                     ></IconButton>
                     {formatTime(song?.duration)[0]}
                   </Td>
