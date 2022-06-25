@@ -110,7 +110,11 @@ export const getServerSideProps = async ({ query, req }) => {
     where: { id: user.id },
   });
   return {
-    props: { playlist, username: detailedUser.username, userId: detailedUser.id },
+    props: {
+      playlist,
+      username: detailedUser.username,
+      userId: detailedUser.id,
+    },
   };
 };
 

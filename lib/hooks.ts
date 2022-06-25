@@ -21,21 +21,11 @@ export const usePlaylist = () => {
   };
 };
 
-export const usePlaylistSongs = () => {
-  const { data, error } = useSWR("/playlistSongs", fetcher);
+// export const usePlaylistSongs = () => {
+//   const { data, error } = useSWR("/playlistSongs", fetcher);
 
-  return {
-    playlists: (data as any) || [],
-    isLoading: !data && !error,
-    isError: error,
-  };
-};
-
-// export const useFavoriteFunc = () => {
-//   const { data, error } = useSWR("/handleFavorite", fetcher);
-
-//   return { 
-//     response: (data as any) || '',
+//   return {
+//     playlists: (data as any) || [],
 //     isLoading: !data && !error,
 //     isError: error,
 //   };

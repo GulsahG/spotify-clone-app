@@ -4,18 +4,10 @@ import { BsFillPlayFill } from "react-icons/bs";
 import { AiOutlineClockCircle, AiOutlineHeart } from "react-icons/ai";
 import { formatTime, formatDate } from "../lib/formatters";
 import { useStoreActions } from "easy-peasy";
-// import { usePlaylistSongs } from "../lib/hooks";
-// import { useSWRConfig } from "swr";
-import { useRouter } from 'next/router'
-// import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const SongTable = ({ songs, userId }) => {
-  const router = useRouter()
-  // const { playlists, isLoading, isError } = usePlaylistSongs();
-  // const { mutate } = useSWRConfig();
-
-  // const [songsState, setSongsState] = useState(songs);
-  // const [mutatedSongs, setMutatedSongs] = useState([]);
+  const [songsState, setSongsState] = useState(songs);
 
   const playSongs = useStoreActions((store: any) => store.changeActiveSongs);
   const setActiveSong = useStoreActions((store: any) => store.changeActiveSong);
@@ -26,8 +18,6 @@ const SongTable = ({ songs, userId }) => {
   };
 
   const handleFavorite = async (userId: number, songId: number, favState: number) => {
-    // debugger;
-    // not working as expected
     const selectedSong = songs.findIndex(s => s.id === songId);
     songs[selectedSong].isFavorited = songs[selectedSong].isFavorited === userId ? 0 : userId;
     const body = { userId, songId, favState };
@@ -38,32 +28,15 @@ const SongTable = ({ songs, userId }) => {
         body: JSON.stringify(body),
     });
     if (response.status !== 200){
-      console.log("something went wrong");
-      //set an error banner here
+      alert("something went wrong");
     } else {
-      console.log("setted favorite state successfully !!!")
-      // mutate('/api/playlistSongs', false)
-      //set a success banner here
+      console.log("setted favorite state successfully!")
+      setSongsState([...songs]);
     }
-    //check response, if success is false, dont take them to success page
     } catch (error) {
-      console.log("there was an error handling", error);
+      alert(`there was an error handling favorite state, ${error}`);
     }
   };
-
-  // useEffect(() => {
-  //   if(playlists && !isLoading && !isError) {
-  //     const playlist = playlists?.find(playlist => playlist.id === +router.query.id)
-  //     setMutatedSongs(playlist.songs);
-  //   }
-  // }, [playlists, isLoading, isError])
-
-  // useEffect(() => {
-  //   if(songsState.length && JSON.stringify(songsState) !== JSON.stringify(songs)) {
-  //     debugger;
-  //     setSongsState(mutatedSongs)
-  //   }
-  // }, [mutatedSongs])
 
   return (
     <Box bg="transparent">
@@ -98,7 +71,7 @@ const SongTable = ({ songs, userId }) => {
             </Tr>
           </Thead>
           <Tbody fontSize="16px">
-            {songs?.map(
+            {songsState?.map(
               (
                 song: {
                   id: number;

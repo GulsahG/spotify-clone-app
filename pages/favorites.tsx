@@ -55,7 +55,6 @@ export const getServerSideProps = async ({ query, req }) => {
       },
     },
   });
-  console.log(favorites);
   const detailedUser = await prisma.user.findUnique({
     where: { id: user.id },
   });

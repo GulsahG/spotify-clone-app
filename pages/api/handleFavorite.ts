@@ -11,12 +11,12 @@ const handleFavorite = async (req: NextApiRequest, res: NextApiResponse) => {
       data: {
         isFavorited: body.favState ? 0 : body.userId,
       },
-    })
+    });
     console.log(updatedSong);
-    return res.status(200).json({updatedSong});
+    return res.status(200).json({ ...updatedSong, success: true });
   } catch (err) {
     console.error("Request error", err);
-    res.status(500).json({ error: "Error creating question", success:false });
+    res.status(500).json({ error: "Error creating question", success: false });
   }
 };
 
