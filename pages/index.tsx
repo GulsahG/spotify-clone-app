@@ -1,4 +1,4 @@
-import Head from "next/head";
+// import Head from "next/head";
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/react";
 
