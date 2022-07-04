@@ -48,7 +48,7 @@ const Home = ({ artists }) => {
                 padding="15px"
               >
                 <Image
-                  src="https://i.scdn.co/image/ab6761610000e5ebd6f2323c1971fd5a70cd0255"
+                  src={`https://picsum.photos/400?random=${idx}`}
                   borderRadius="100%"
                 />
                 <Box m="20px 0 10px 0">

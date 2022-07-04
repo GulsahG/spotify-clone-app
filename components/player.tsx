@@ -23,7 +23,7 @@ import {
 import { useStoreActions } from "easy-peasy";
 import { formatTime } from "../lib/formatters";
 
-const Player = ({ songs, activeSong }) => {
+const Player = ({ songs, activeSong, volume }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [index, setIndex] = useState(
     songs.findIndex((s) => s.id === activeSong?.id)
@@ -131,6 +131,7 @@ const Player = ({ songs, activeSong }) => {
             ref={soundRef}
             onLoad={onLoad}
             onEnd={onEnd}
+            volume={volume}
           />
         )}
       </Box>
