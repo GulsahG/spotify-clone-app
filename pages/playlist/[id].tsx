@@ -17,6 +17,7 @@ const getBGColor = (id: number) => {
     "red",
     "gray",
     "red",
+    "green",
   ];
 
   return colors[id - 1] || colors[Math.floor(Math.random() * colors.length)];
@@ -34,6 +35,7 @@ const getBGImage = (id: number) => {
     "https://i.pinimg.com/564x/22/ed/c5/22edc5e485ff91f9c33eb5ba9e329bd6.jpg",
     "https://i.pinimg.com/564x/fd/ef/bb/fdefbb0e702a2ea9934a059927a1af3f.jpg",
     "https://i.pinimg.com/736x/95/00/33/950033b0ab4734dcda897861a3443e3a.jpg",
+    "https://i.pinimg.com/736x/8d/76/65/8d7665995e979124180ee264e4ac10f5.jpg",
   ];
 
   return images[id - 1] || images[Math.floor(Math.random() * images.length)];

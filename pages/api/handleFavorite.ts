@@ -16,7 +16,9 @@ const handleFavorite = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(200).json({ ...updatedSong, success: true });
   } catch (err) {
     console.error("Request error", err);
-    res.status(500).json({ error: "Error creating question", success: false });
+    res
+      .status(500)
+      .json({ error: "Error handling fav state of song", success: false });
   }
 };
 
